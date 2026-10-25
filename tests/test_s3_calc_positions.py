@@ -137,7 +137,7 @@ def test_process_strategy_month_skips_when_output_is_fresh(tmp_path):
 def test_process_strategy_month_honors_real_rsi_zone_template_contract(monkeypatch, tmp_path):
     """実在するstrategies_md/oscillator/rsi_zone/template.pyがS2で生成され、S3を通した際に
     apply_entry_flagの3カラム契約(entry_flag/buy_sell/trend_dir, conventions.md)を満たすこと。"""
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     s2.main()
 
     strategy_path = tmp_path / "strategies" / "rsi_zone" / "distance_from_mid20_rsi_period14.py"
@@ -166,7 +166,7 @@ def test_process_strategy_month_honors_real_rsi_zone_template_contract(monkeypat
 
 
 def test_run_end_to_end_writes_positions(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     monkeypatch.setenv("ENTRY_INTERVAL_MIN", "0")
     # Avoid real subprocess/spawn overhead & pickling friction in the sandbox.
     monkeypatch.setattr(s3.concurrent.futures, "ProcessPoolExecutor", concurrent.futures.ThreadPoolExecutor)

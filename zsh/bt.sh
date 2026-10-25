@@ -2,23 +2,23 @@
 # AI/スクリプトから非対話で叩く場合は `bin/bt <stage> [args]`（シェル非依存の実行可能スクリプト）を使う。
 #
 # 使い方:
-#   echo 'source /path/to/bt-lab/zsh/bt.sh' >> ~/.zshrc
+#   echo 'source /path/to/drip-sim/zsh/bt.sh' >> ~/.zshrc
 
-BT_LAB_DIR="${${(%):-%x}:A:h:h}"   # このファイル自身のパスから2階層上(repoルート)を求める
+DRIP_SIM_DIR="${${(%):-%x}:A:h:h}"   # このファイル自身のパスから2階層上(repoルート)を求める
 
 bt-py() {
   emulate -L zsh
   local py
-  py=$("$BT_LAB_DIR/bin/bt-python") || return 1
-  PYTHONPATH="$BT_LAB_DIR" "$py" "$@"
+  py=$("$DRIP_SIM_DIR/bin/bt-python") || return 1
+  PYTHONPATH="$DRIP_SIM_DIR" "$py" "$@"
 }
 
 bt() {
   emulate -L zsh
   if (( $# == 0 )); then
-    bt-py "$BT_LAB_DIR/bt.py" flow
+    bt-py "$DRIP_SIM_DIR/bt.py" flow
   else
-    bt-py "$BT_LAB_DIR/bt.py" "$@"
+    bt-py "$DRIP_SIM_DIR/bt.py" "$@"
   fi
 }
 

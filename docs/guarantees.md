@@ -4,11 +4,11 @@
 
 ### 1. `tests/test_env_paths.py` — lib/env_paths.py (get_backtest_data_root / get_bt_data_root / get_parquet_root / get_strategies_root / get_logs_root / get_import_root / ensure_dirs)
 
-- `get_backtest_data_root()` は `BACKTEST_DATA_ROOT` 環境変数が未設定の場合、既定値 `~/bt_data/backtest` を返す
-- `get_backtest_data_root()` は `BACKTEST_DATA_ROOT` が設定されていればその値をそのまま返す
-- `get_backtest_data_root()` は `BACKTEST_DATA_ROOT` が空白文字のみの場合も既定値にフォールバックする
-- `get_bt_data_root()`/`get_parquet_root()`/`get_strategies_root()`/`get_logs_root()` は、それぞれ `BACKTEST_DATA_ROOT` 配下の `bt_data`/`parquet_data`/`strategies`/`logs` を返す
-- `get_import_root()` はリポジトリルート直下の `import/` ディレクトリを返す（`BACKTEST_DATA_ROOT` に依存しない）
+- `get_backtest_data_root()` は `DRIP_SIM_DATA` 環境変数が未設定の場合、既定値 `~/drip_sim_data` を返す
+- `get_backtest_data_root()` は `DRIP_SIM_DATA` が設定されていればその値をそのまま返す
+- `get_backtest_data_root()` は `DRIP_SIM_DATA` が空白文字のみの場合も既定値にフォールバックする
+- `get_bt_data_root()`/`get_parquet_root()`/`get_strategies_root()`/`get_logs_root()` は、それぞれ `DRIP_SIM_DATA` 配下の `bt_data`/`parquet_data`/`strategies`/`logs` を返す
+- `get_import_root()` はリポジトリルート直下の `import/` ディレクトリを返す（`DRIP_SIM_DATA` に依存しない）
 - `ensure_dirs()` はルート自身と `bt_data`/`parquet_data`/`strategies`/`logs` の全ディレクトリを作成する
 
 | 保証（要約） | 対応テスト |

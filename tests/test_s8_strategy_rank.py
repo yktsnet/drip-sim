@@ -37,14 +37,14 @@ def _write_monthly_csv(root, year, rows):
 
 
 def test_run_no_summary_dir_prints_message(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     args = s8.argparse.Namespace(rank_months=None, rf_min=None, recovery_months_max=None, min_sig_per_hour=None, as_of=None)
     s8.run(args)
     assert "Run s7 first" in capsys.readouterr().out
 
 
 def test_run_ranks_and_filters_by_recovery_factor(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     summary_root = tmp_path / "summary"
     rows = []
@@ -77,7 +77,7 @@ def test_run_ranks_and_filters_by_recovery_factor(monkeypatch, tmp_path):
 
 
 def test_run_min_sig_per_hour_excludes_low_frequency_strategies(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     summary_root = tmp_path / "summary"
     rows = [{
@@ -95,7 +95,7 @@ def test_run_min_sig_per_hour_excludes_low_frequency_strategies(monkeypatch, tmp
 
 
 def test_run_as_of_writes_snapshot_not_latest_rank(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     summary_root = tmp_path / "summary"
     rows = [{
         "year": 2025, "month": m, "session": "all", "id": "rsi_zone", "slug": "a",

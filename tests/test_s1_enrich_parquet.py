@@ -80,7 +80,7 @@ def test_enrich_file_converts_int_ms_time_utc(tmp_path):
 
 
 def test_main_year_filter_processes_only_matching_year(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     parquet_root = tmp_path / "parquet_data"
     _write(parquet_root / "year=2024" / "01.parquet", _bars())
     _write(parquet_root / "year=2025" / "01.parquet", _bars())
@@ -93,7 +93,7 @@ def test_main_year_filter_processes_only_matching_year(monkeypatch, tmp_path, ca
 
 
 def test_main_default_processes_all_years(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     parquet_root = tmp_path / "parquet_data"
     _write(parquet_root / "year=2024" / "01.parquet", _bars())
     _write(parquet_root / "year=2025" / "01.parquet", _bars())

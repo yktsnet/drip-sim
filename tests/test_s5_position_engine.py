@@ -142,7 +142,7 @@ def test_process_one_skips_when_inputs_missing(tmp_path):
 
 
 def test_run_end_to_end(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     monkeypatch.setattr(s5.concurrent.futures, "ProcessPoolExecutor", concurrent.futures.ThreadPoolExecutor)
 
     parquet_root = tmp_path / "parquet_data"

@@ -2,7 +2,7 @@
 s_monthly_sim.py — Monthly backtest simulation
 
 Runs snapshot strategies with pips_avg_per_entry >= 0.3 over past 12 complete months.
-Output: bt_data/backtest/monthly/{YYYY-MM}/ALL/{date}.csv
+Output: drip_sim_data/monthly/{YYYY-MM}/ALL/{date}.csv
 
 Run:
   python3 s_monthly_sim.py
