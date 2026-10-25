@@ -4,23 +4,23 @@ import lib.env_paths as env_paths
 
 
 def test_default_data_root_is_under_home(monkeypatch):
-    monkeypatch.delenv("BACKTEST_DATA_ROOT", raising=False)
-    assert env_paths.get_backtest_data_root() == Path.home() / "bt_data" / "backtest"
+    monkeypatch.delenv("DRIP_SIM_DATA", raising=False)
+    assert env_paths.get_backtest_data_root() == Path.home() / "drip_sim_data"
 
 
 def test_env_override(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     assert env_paths.get_backtest_data_root() == tmp_path
 
 
 def test_env_whitespace_only_falls_back_to_default(monkeypatch):
-    """BACKTEST_DATA_ROOTが空白のみの場合、既定値(~/bt_data/backtest)扱いになること。"""
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", "   ")
-    assert env_paths.get_backtest_data_root() == Path.home() / "bt_data" / "backtest"
+    """DRIP_SIM_DATAが空白のみの場合、既定値(~/drip_sim_data)扱いになること。"""
+    monkeypatch.setenv("DRIP_SIM_DATA", "   ")
+    assert env_paths.get_backtest_data_root() == Path.home() / "drip_sim_data"
 
 
 def test_derived_paths_compose_under_data_root(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     assert env_paths.get_bt_data_root() == tmp_path / "bt_data"
     assert env_paths.get_parquet_root() == tmp_path / "parquet_data"
     assert env_paths.get_strategies_root() == tmp_path / "strategies"
@@ -33,7 +33,7 @@ def test_import_root_is_repo_import_dir():
 
 
 def test_ensure_dirs_creates_all(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     env_paths.ensure_dirs()
     for sub in ["", "bt_data", "parquet_data", "strategies", "logs"]:
         assert (tmp_path / sub).is_dir()

@@ -78,7 +78,7 @@ def test_build_positions_records_tp_close():
 
 
 def test_run_writes_daily_csv_for_snapshot_strategies(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     rank_root = tmp_path / "rank" / "all"
     strategies_root = tmp_path / "strategies"
@@ -125,7 +125,7 @@ def test_run_writes_daily_csv_for_snapshot_strategies(monkeypatch, tmp_path):
 def test_run_write_failure_does_not_leave_partial_daily_csv(monkeypatch, tmp_path):
     """run()の日次CSV書き込みは.tmpへ書いてからos.replaceする（atomic write契約, conventions.md）
     ため、書き込み中に例外が起きても壊れた出力ファイルが残らない。"""
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     rank_root = tmp_path / "rank" / "all"
     strategies_root = tmp_path / "strategies"
@@ -172,7 +172,7 @@ def test_run_write_failure_does_not_leave_partial_daily_csv(monkeypatch, tmp_pat
 
 
 def test_run_skips_month_without_snapshot(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     args = sim.argparse.Namespace(
         pip_size=None, tp_pips=None, sl_pips=None, max_entries=None,
         abn_burst_pips=None, abn_forward_block_bars=None, spread_pips=None, month="2026-02",

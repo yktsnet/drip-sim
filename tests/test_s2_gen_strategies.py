@@ -22,7 +22,7 @@ def test_vstr_formats_float_without_trailing_zeros():
 
 
 def test_main_generates_one_file_per_grid_combo(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     s2.main()
 
     strategies_root = tmp_path / "strategies"
@@ -40,7 +40,7 @@ def test_main_generates_one_file_per_grid_combo(monkeypatch, tmp_path, capsys):
 
 
 def test_main_second_run_keeps_everything(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     s2.main()
     capsys.readouterr()
     s2.main()
@@ -52,7 +52,7 @@ def test_main_second_run_keeps_everything(monkeypatch, tmp_path, capsys):
 
 
 def test_main_deletes_stray_files_not_in_desired_set(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     s2.main()
     capsys.readouterr()
 
@@ -69,7 +69,7 @@ def test_main_deletes_stray_files_not_in_desired_set(monkeypatch, tmp_path, caps
 def test_main_write_failure_leaves_existing_strategy_file_untouched(monkeypatch, tmp_path):
     """main()は.tmpへ書いてからos.replaceする（atomic write契約, conventions.md）ため、
     書き込み中に例外が起きても既存の戦略ファイルは壊れた状態で残らない。"""
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     s2.main()
 
     strategies_root = tmp_path / "strategies" / "rsi_zone"
@@ -89,7 +89,7 @@ def test_main_write_failure_leaves_existing_strategy_file_untouched(monkeypatch,
 
 
 def test_main_skips_combos_with_missing_required_features(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     # Point the feature registry lookup at a temp dir with no features declared,
     # so every rsi_zone combo's required_features (rsiN) is unavailable.

@@ -6,7 +6,7 @@
 
 ## 1. 位置づけ
 
-`strategies_md/` は backtest パイプラインの **戦略仕様の唯一の正しいソース**。kind 単位で「思想 (SPEC.md)」と「実装 (template.py)」を併置する。`core/s2_gen_strategies.py` は `template.py` を読み込み、`PARAMS_GRID` を直積展開して `$BACKTEST_DATA_ROOT/strategies/<kind>/<slug>.py` を生成する。
+`strategies_md/` は backtest パイプラインの **戦略仕様の正本**。kind 単位で「思想 (SPEC.md)」と「実装 (template.py)」を併置する。`core/s2_gen_strategies.py` は `template.py` を読み込み、`PARAMS_GRID` を直積展開して `$DRIP_SIM_DATA/strategies/<kind>/<slug>.py` を生成する。
 
 ---
 

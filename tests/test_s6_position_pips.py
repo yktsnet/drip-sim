@@ -71,7 +71,7 @@ def test_process_one_skips_when_pips_net_already_populated(tmp_path):
 
 
 def test_run_end_to_end(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     monkeypatch.setattr(s6.concurrent.futures, "ProcessPoolExecutor", concurrent.futures.ThreadPoolExecutor)
 
     events_dir = tmp_path / "pos_events" / "rsi_zone" / "a20" / "year=2026"

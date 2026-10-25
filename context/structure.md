@@ -1,7 +1,7 @@
 # Structure
 
 ```
-bt-lab/
+drip-sim/
 ├── bt.py                        # 全段の単一CLIエントリーポイント（bt.py --help）
 ├── bin/
 │   ├── bt                         # AI/スクリプト向け非対話実行（シェル非依存）
@@ -21,7 +21,7 @@ bt-lab/
 │   ├── s_monthly_sim.py           # 単月シミュレーション
 │   └── s_monthly_backfill.py      # 複数月の月次シムをバックフィル
 ├── lib/                          # 共有ライブラリ
-│   ├── env_paths.py                # BACKTEST_DATA_ROOT等のパス解決。ハードコード禁止の唯一の情報源
+│   ├── env_paths.py                # DRIP_SIM_DATA等のパス解決。ハードコード禁止の唯一の情報源
 │   ├── features.py                 # 素材特徴量計算（RSI/EMA/ATR/Bollinger等の純関数群）
 │   ├── feature_registry.py         # feature_registry.yamlのロード
 │   ├── grid.py                     # PARAMS_GRIDの直積展開

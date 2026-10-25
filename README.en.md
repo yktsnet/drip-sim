@@ -1,6 +1,6 @@
 [🇯🇵 日本語](README.md) | [🇬🇧 English](README.en.md)
 
-# bt-lab
+# drip-sim
 
 A backtest exploration pipeline that evaluates multiple strategy candidates side by side and ranks them by entry rate, drawdown, and Recovery Factor. Rather than searching for a single winning strategy, the point of this repo is the mechanism that keeps selecting "which candidates are still surviving."
 
@@ -17,13 +17,13 @@ pip install -r requirements.txt
 
 # Run the full pipeline against synthetic sample data
 python3 examples/sample/generate_data.py
-BACKTEST_DATA_ROOT=/tmp/bt-lab-demo python3 bt.py all
+DRIP_SIM_DATA=/tmp/drip-sim-demo python3 bt.py all
 ```
 
-The normal way to use this is to bring your own real data (no data is bundled with the repo; see [docs/fetch-data.md](docs/fetch-data.md) for how to fetch it). Drop M5 OHLC JSONL (`time_utc`/`open`/`high`/`low`/`close`) at `$BACKTEST_DATA_ROOT/bt_data/*_m5_*.jsonl` and `bt.py s1b` picks it up.
+The normal way to use this is to bring your own real data (no data is bundled with the repo; see [docs/fetch-data.md](docs/fetch-data.md) for how to fetch it). Drop M5 OHLC JSONL (`time_utc`/`open`/`high`/`low`/`close`) at `$DRIP_SIM_DATA/bt_data/*_m5_*.jsonl` and `bt.py s1b` picks it up.
 
 ```bash
-export BACKTEST_DATA_ROOT=~/bt_data/backtest   # default; same path even if unset
+export DRIP_SIM_DATA=~/drip_sim_data # default; same path even if unset
 python3 bt.py s1b                    # JSONL → parquet
 python3 bt.py s1c                    # bake indicator features into parquet
 python3 bt.py s2                     # strategies_md → generate strategy files (idempotent)
@@ -39,7 +39,7 @@ python3 bt.py flow                   # interactive phase-by-phase runner
 
 For non-interactive use from AI/scripts, use `bin/bt <stage> [args]` (a shell-independent executable). Run `bt.py --help` to list all stages, or `bt.py <stage> --help` for a stage's arguments.
 
-For interactive human use, there's `zsh/bt.sh`. Add `source /path/to/bt-lab/zsh/bt.sh` to your `.zshrc` and you get `bt` (reinterprets a bare call as `bt.py flow`, with tab completion) and `bt-py` (for invoking individual scripts directly).
+For interactive human use, there's `zsh/bt.sh`. Add `source /path/to/drip-sim/zsh/bt.sh` to your `.zshrc` and you get `bt` (reinterprets a bare call as `bt.py flow`, with tab completion) and `bt-py` (for invoking individual scripts directly).
 
 ## Architecture
 

@@ -1,6 +1,6 @@
 [🇯🇵 日本語](README.md) | [🇬🇧 English](README.en.md)
 
-# bt-lab
+# drip-sim
 
 複数戦略候補を横断的に検証し、エントリー率・ドローダウン・Recovery Factorでランキングするバックテスト探索パイプライン。単一の勝ち戦略を探すのではなく、「どの戦略候補が生き残るか」を継続的に選抜する仕組みそのものが本体である。
 
@@ -17,13 +17,13 @@ pip install -r requirements.txt
 
 # 合成サンプルデータで一通り回す
 python3 examples/sample/generate_data.py
-BACKTEST_DATA_ROOT=/tmp/bt-lab-demo python3 bt.py all
+DRIP_SIM_DATA=/tmp/drip-sim-demo python3 bt.py all
 ```
 
-標準の使い方は実データを自分で用意して回すこと（リポにデータは同梱しない。取得手順は[docs/fetch-data.md](docs/fetch-data.md)）。M5足のOHLC JSONL（`time_utc`/`open`/`high`/`low`/`close`）を`$BACKTEST_DATA_ROOT/bt_data/*_m5_*.jsonl`に置けば`bt.py s1b`から通る。
+標準の使い方は実データを自分で用意して回すこと（リポにデータは同梱しない。取得手順は[docs/fetch-data.md](docs/fetch-data.md)）。M5足のOHLC JSONL（`time_utc`/`open`/`high`/`low`/`close`）を`$DRIP_SIM_DATA/bt_data/*_m5_*.jsonl`に置けば`bt.py s1b`から通る。
 
 ```bash
-export BACKTEST_DATA_ROOT=~/bt_data/backtest   # 既定値。未設定でもこのパス
+export DRIP_SIM_DATA=~/drip_sim_data # 既定値。未設定でもこのパス
 python3 bt.py s1b                    # JSONL → parquet
 python3 bt.py s1c                    # parquetへ特徴量焼き込み
 python3 bt.py s2                     # strategies_md → 戦略ファイル生成（冪等）
@@ -39,7 +39,7 @@ python3 bt.py flow                   # 対話形式でフェーズを選んで�
 
 AI/スクリプトからの非対話実行には`bin/bt <stage> [args]`（シェル非依存の実行可能スクリプト）を使う。`bt.py --help`で全stage一覧、`bt.py <stage> --help`で各段の引数を確認できる。
 
-人間の対話利用向けには`zsh/bt.sh`がある。`.zshrc`等で`source /path/to/bt-lab/zsh/bt.sh`すると、`bt`（引数無しで`bt.py flow`に読み替え、tab補完つき）と`bt-py`（個別スクリプトを直接叩く用）が使えるようになる。
+人間の対話利用向けには`zsh/bt.sh`がある。`.zshrc`等で`source /path/to/drip-sim/zsh/bt.sh`すると、`bt`（引数無しで`bt.py flow`に読み替え、tab補完つき）と`bt-py`（個別スクリプトを直接叩く用）が使えるようになる。
 
 ## Architecture
 

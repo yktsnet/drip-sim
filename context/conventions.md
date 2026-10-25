@@ -1,6 +1,6 @@
 # Conventions
 
-- パス解決はすべて`lib/env_paths`経由。`BACKTEST_DATA_ROOT`（既定`~/bt_data/backtest`）を起点に`bt_data/`・`parquet_data/`・`strategies/`・`logs/`を導出する。ハードコード禁止。
+- パス解決はすべて`lib/env_paths`経由。`DRIP_SIM_DATA`（既定`~/drip_sim_data`）を起点に`bt_data/`・`parquet_data/`・`strategies/`・`logs/`を導出する。ハードコード禁止。
 - ファイル書き込みはatomic（`.tmp`へ書いてから`os.replace`）を基本とする。中断時に壊れた出力を残さない。
 - `import/feature_registry.yaml`は手書き固定ファイル。自動生成・上書きはしない。S1cが焼き込む特徴量とS2の依存チェックの単一情報源。
 - `lib/features.py`の特徴量関数は右寄せ（時点tの値はt以前のデータのみ使用）で、列名はインジケータ名+パラメータのスネーク記法（例: `rsi14`, `bb_upper_20_2p0`）。命名規則は各関数のdocstringに明記する。

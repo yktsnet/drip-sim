@@ -8,7 +8,7 @@ def _from_env(name: str, default: Path) -> Path:
 
 
 def get_backtest_data_root() -> Path:
-    return _from_env("BACKTEST_DATA_ROOT", Path.home() / "bt_data" / "backtest")
+    return _from_env("DRIP_SIM_DATA", Path.home() / "drip_sim_data")
 
 
 def get_bt_data_root() -> Path:

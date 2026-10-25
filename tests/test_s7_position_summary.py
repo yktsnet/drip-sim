@@ -35,7 +35,7 @@ def test_bars_in_window_counts_hours_before_eod(tmp_path):
 
 
 def test_run_no_pos_events_prints_message(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     s7.run()
     assert "pos_events/ not found" in capsys.readouterr().out
 
@@ -47,7 +47,7 @@ def _write_events(root, tid, slug, year, month, records):
 
 
 def test_run_produces_monthly_quarterly_yearly_csv_with_correct_aggregates(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     parquet_root = tmp_path / "parquet_data" / "year=2026"
     parquet_root.mkdir(parents=True)
@@ -84,7 +84,7 @@ def test_run_produces_monthly_quarterly_yearly_csv_with_correct_aggregates(monke
 
 
 def test_run_skips_files_without_type_column_or_empty_close(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     parquet_root = tmp_path / "parquet_data" / "year=2026"
     parquet_root.mkdir(parents=True)
     times = pd.date_range("2026-01-05", periods=10, freq="5min", tz="UTC")

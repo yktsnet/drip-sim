@@ -1,4 +1,4 @@
-# bt-lab
+# drip-sim
 
 @context/conventions.md
 @context/structure.md
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 # 合成サンプルデータを生成してパイプラインを一通り実行
 python3 examples/sample/generate_data.py
-BACKTEST_DATA_ROOT=/tmp/bt-lab-demo python3 bt.py all
+DRIP_SIM_DATA=/tmp/drip-sim-demo python3 bt.py all
 ```
 
 ## Verification

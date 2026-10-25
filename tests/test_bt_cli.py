@@ -117,7 +117,7 @@ def test_flow_view_results_menu_entry(monkeypatch):
 
 
 def test_run_stage_archives_rank_output_after_s8_success(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     rank_all = tmp_path / "rank" / "all"
     rank_all.mkdir(parents=True)
     (rank_all / "rank_by_pips_avg.csv").write_text("a,b\n1,2\n")
@@ -131,7 +131,7 @@ def test_run_stage_archives_rank_output_after_s8_success(monkeypatch, tmp_path):
 
 
 def test_run_stage_does_not_archive_on_s8_failure(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     rank_all = tmp_path / "rank" / "all"
     rank_all.mkdir(parents=True)
     (rank_all / "rank_by_pips_avg.csv").write_text("a,b\n1,2\n")
@@ -143,7 +143,7 @@ def test_run_stage_does_not_archive_on_s8_failure(monkeypatch, tmp_path):
 
 
 def test_run_stage_does_not_archive_for_non_s8_stages(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     rank_all = tmp_path / "rank" / "all"
     rank_all.mkdir(parents=True)
     (rank_all / "rank_by_pips_avg.csv").write_text("a,b\n1,2\n")
@@ -155,7 +155,7 @@ def test_run_stage_does_not_archive_for_non_s8_stages(monkeypatch, tmp_path):
 
 
 def test_result_entries_lists_latest_history_then_monthly(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     rank_all = tmp_path / "rank" / "all"
     rank_all.mkdir(parents=True)
     (rank_all / "rank_by_pips_avg.csv").write_text("a\n1\n")
@@ -174,13 +174,13 @@ def test_result_entries_lists_latest_history_then_monthly(monkeypatch, tmp_path)
 
 
 def test_view_results_no_results_prints_message(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     bt._view_results()
     assert "no results found" in capsys.readouterr().out
 
 
 def test_view_results_selects_and_prints_csv(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     rank_all = tmp_path / "rank" / "all"
     rank_all.mkdir(parents=True)
     (rank_all / "rank_by_pips_avg.csv").write_text("a,b\n1,2\n")

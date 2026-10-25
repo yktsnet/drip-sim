@@ -66,7 +66,7 @@ def _write_positions(root, tid, slug, year, month, entry_times):
 
 
 def test_run_bans_low_rate_strategy_and_keeps_normal_one(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     parquet_root = tmp_path / "parquet_data" / "year=2026"
     parquet_root.mkdir(parents=True)
@@ -96,7 +96,7 @@ def test_run_bans_low_rate_strategy_and_keeps_normal_one(monkeypatch, tmp_path, 
 
 
 def test_run_dry_run_does_not_write_ban_file(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     parquet_root = tmp_path / "parquet_data" / "year=2026"
     parquet_root.mkdir(parents=True)
     times = pd.date_range("2026-01-05", periods=50, freq="5min", tz="UTC")
@@ -112,13 +112,13 @@ def test_run_dry_run_does_not_write_ban_file(monkeypatch, tmp_path, capsys):
 
 
 def test_run_no_parquet_files_prints_message(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     s4.run(months=1, min_rate=0.01, max_rate=0.9, jaccard_thr=0.99, dry_run=False)
     assert "no parquet files found" in capsys.readouterr().out
 
 
 def test_run_no_positions_dir_prints_message(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
     parquet_root = tmp_path / "parquet_data" / "year=2026"
     parquet_root.mkdir(parents=True)
     times = pd.date_range("2026-01-05", periods=10, freq="5min", tz="UTC")
@@ -129,7 +129,7 @@ def test_run_no_positions_dir_prints_message(monkeypatch, tmp_path, capsys):
 
 
 def test_run_bans_high_rate_strategy(monkeypatch, tmp_path, capsys):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     parquet_root = tmp_path / "parquet_data" / "year=2026"
     parquet_root.mkdir(parents=True)
@@ -151,7 +151,7 @@ def test_run_bans_high_rate_strategy(monkeypatch, tmp_path, capsys):
 
 
 def test_run_bans_no_data_strategy_when_bars_in_window_is_zero(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     parquet_root = tmp_path / "parquet_data" / "year=2026"
     parquet_root.mkdir(parents=True)
@@ -171,7 +171,7 @@ def test_run_bans_no_data_strategy_when_bars_in_window_is_zero(monkeypatch, tmp_
 
 
 def test_run_jaccard_dedup_bans_near_duplicate_strategy(monkeypatch, tmp_path):
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     parquet_root = tmp_path / "parquet_data" / "year=2026"
     parquet_root.mkdir(parents=True)
@@ -196,7 +196,7 @@ def test_run_jaccard_dedup_bans_near_duplicate_strategy(monkeypatch, tmp_path):
 def test_run_write_failure_leaves_existing_ban_output_untouched(monkeypatch, tmp_path):
     """ban yaml書き込みは一時ファイル→os.replaceの手順を踏むため、書き込み中に例外が
     起きても既存のban出力（実際の出力パス）は壊れた状態で残らない（atomic write契約, conventions.md）。"""
-    monkeypatch.setenv("BACKTEST_DATA_ROOT", str(tmp_path))
+    monkeypatch.setenv("DRIP_SIM_DATA", str(tmp_path))
 
     parquet_root = tmp_path / "parquet_data" / "year=2026"
     parquet_root.mkdir(parents=True)
